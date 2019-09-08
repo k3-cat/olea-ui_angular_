@@ -1,0 +1,29 @@
+.mat-sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 240px;
+  display: flex;
+  padding-top: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  justify-content: center;
+}
+
+.main-content {
+  padding: 30px;
+}
+
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+button {
+  transform: scale(1.2);
+}
+
+h2 {
+  margin: 0 auto;
+  font-size: 25px;
+}

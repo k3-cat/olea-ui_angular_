@@ -1,0 +1,26 @@
+mat-form-field {
+    width: 100%;
+}
+
+h2 {
+    font-size: 30px;
+    text-align: center;
+    margin: 10px 0px 20px 0px;
+}
+
+mat-card {
+    margin: 50px auto;
+    width: 350px;
+}
+
+.text-button {
+    font-size: 18px;
+    padding: 5px 15px;
+    width: 100%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 10px 5px 10px;
+}

@@ -1,0 +1,91 @@
+<div class="page" *ngIf="g.user">
+  <h3>你好 {{g.user.name}},</h3>
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>个人信息</mat-panel-title>
+        <mat-panel-description>QQ, Line, Email 之类的</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div [style.display]="'none'" #editinfo>
+        <div class="container">
+          <mat-form-field>
+            <input matInput placeholder="QQ" [formControl]="qq" maxlength="10">
+            <mat-error *ngIf="qq.invalid">这个明显不是QQ来着...</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Line" [formControl]="line">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Email" [formControl]="email">
+            <mat-error *ngIf="email.invalid">这个好像不是Email来着...</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="button-box">
+          <button class="button" mat-button (click)="updateInfo(showinfo, editinfo)">UPDATE</button>
+        </div>
+      </div>
+      <div #showinfo>
+        <div class="container">
+          <mat-list>
+            <mat-list-item>QQ:&emsp;{{g.user.qq}}</mat-list-item>
+            <mat-list-item>Line:&emsp;{{g.user.line}}</mat-list-item>
+            <mat-list-item>Email:&emsp;<i>[数据删除]</i></mat-list-item>
+          </mat-list>
+        </div>
+        <div class="button-box">
+          <button class="button" mat-button
+            (click)="qq.reset(g.user.qq);line.reset(g.user.line);showinfo.style.display='none'; editinfo.style.display='block'">EDIT</button>
+        </div>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>更改口令</mat-panel-title>
+        <mat-panel-description>就.. 改口令呗....</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="container">
+        <mat-form-field>
+          <input matInput placeholder="New Password" [formControl]="pwd" [type]="hide ? 'password' : 'text'">
+          <button mat-icon-button matSuffix (click)="hide = !hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="pwd.invalid">至少要8位长哦...</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="button-box">
+        <button class="button" (click)="setPwd()" mat-button>SET</button>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Token管理</mat-panel-title>
+        <mat-panel-description>或者叫会话也行(无状态的)</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="container" style="line-height: 0.6rem">
+        <p>如果你仅仅想要注销/登出/退出登录现在在用的这个设备&ensp;点左边的</p>
+        <p>如果想要注销/登出/退出登录所有曾登录过的设备&ensp;点右边的</p>
+        <p>那...&ensp;为什么要搞这么麻烦呢...</p>
+        <p>因为我也不知道要怎么解释这件事嘛QWQ&ensp;上面一大串放按钮里也太丑了</p>
+        <p>反正这里空着也不好看&ensp;而且这件事其实比上面说的要麻烦点点</p>
+      </div>
+      <div class="button-box">
+        <button class="button" (click)="revorkToken(true)" mat-button>Revoke ALL</button>
+        <button class="button" (click)="revorkToken()" mat-button>Revoke Current</button>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Lemon Settings</mat-panel-title>
+        <mat-panel-description>散布着会喷火的激光恐龙的危险区域</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="container">
+        <mat-form-field>
+          <input matInput placeholder="EToken" #etoken>
+        </mat-form-field>
+      </div>
+      <div class="button-box">
+        <button class="button" mat-button (click)="setEToken(etoken.value)">SAVE ETOKEN</button>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

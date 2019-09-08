@@ -1,0 +1,28 @@
+<div class="area" *ngIf="g.projs">
+  <div *ngFor="let proj of g.projs" class="card" routerLink="/projs/{{proj.id}}">
+    <mat-card matRipple>
+      <mat-card-header>
+        <mat-card-title>
+          <span [innerHTML]="proj.title"></span>
+          <span>
+            <button mat-icon-button *ngIf="proj.url" (click)="goSource(proj);$event.stopPropagation();">
+              <mat-icon [style.color]="proj.cat==='normal'?'lightsalmon':'plum'" matTooltip=" source document">subject
+              </mat-icon>
+            </button></span>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <p style="margin: 16px 0px; text-align: center;"><span>文本:&ensp;</span>{{proj.complexity["wc"]}}<span>字
+            |
+            音频:&ensp;</span>{{proj.complexity["al"]}}<span>s |
+            剪辑后音频:&ensp;</span>{{proj.complexity["al"]}}<span>s</span></p>
+        <span>
+          <p>{{proj.note[0]}}</p>
+          <p>{{proj.note[1]}}</p>
+        </span>
+      </mat-card-content>
+
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+.page {
+  width: 525px;
+  margin: 50px auto;
+}
+
+h3 {
+  margin: 0px 0px 20px 10px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.container > * {
+  width: 100%;
+}
+
+.button-box {
+  margin-top: 15px;
+}
+
+.button {
+  float: right;
+}

@@ -1,0 +1,23 @@
+.card:hover {
+  background-color: #eee;
+  cursor: pointer;
+}
+
+.area{
+  width: 1200px;
+  overflow: auto;
+  margin: 50px auto;
+}
+
+.card{
+  margin: 15px;
+  width: 370px;
+  position: relative;
+  vertical-align: top;
+  display:inline-block;
+}
+
+button {
+  margin-left: 8px;
+  vertical-align: 4px;
+}

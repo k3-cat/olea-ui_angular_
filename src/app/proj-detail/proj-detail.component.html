@@ -1,0 +1,85 @@
+<div class="page" *ngIf="proj">
+  <h2 [innerHTML]="proj.title"></h2>
+  <mat-divider></mat-divider>
+  <div class="container" style="margin: 15px 0;">
+    <div class="center-vertical" style="max-width: 400px">
+      <p>{{proj.note[0]}}</p>
+      <div #notedispaly>
+        <p>{{proj.note[1]}}</p>
+        <div class="button-box">
+          <button class="button" mat-button
+            (click)="notedispaly.style.display='none'; editnote.style.display='block';editNote(true)">EDIT</button>
+        </div>
+      </div>
+      <div #editnote style="display: none;">
+        <mat-form-field>
+          <textarea matInput placeholder="Note" [formControl]="note"></textarea>
+        </mat-form-field>
+        <div class="button-box">
+          <button class="button" mat-button
+            (click)="notedispaly.style.display='block'; editnote.style.display='none';editNote(false)">SAVE</button>
+        </div>
+      </div>
+    </div>
+    <div class="center-vertical">
+      <ng-container *ngIf="!proj.booking_user">
+        <button class="button" mat-button (click)="book()">预定</button>
+      </ng-container>
+      <ng-container *ngIf="proj.booking_user">
+        <p style="font-size: 20px">已经被{{proj.booking_user|pinkName}}预定啦</p>
+        <ng-container *ngIf="proj.booking_user == this.g.user.id">
+          <button class="button" mat-button (click)="unbook()">取消预定</button>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="container">
+    <div class="roles-container" #zone1 [style.display]="myRoles.length==0? 'none': 'inline-block'">
+      <h3>你接过的:</h3>
+      <div cdkDropList #my_roles="cdkDropList" [cdkDropListData]="myRoles" [cdkDropListConnectedTo]="[free_roles]"
+        class="roles-list" (cdkDropListDropped)="pick($event)"
+        [style.border]="myRoles.length==0?'dashed 1.5px #ccc':'solid 1px #ccc'"
+        (cdkDropListEntered)="zone11.style.border='solid 1px #ccc'"
+        (cdkDropListExited)="zone11.style.border=myRoles.length<=1?'dashed 1.5px #ccc':'solid 1px #ccc'" #zone11>
+        <div class="role-box" *ngFor="let role of myRoles" cdkDrag [cdkDragStartDelay]="300"
+          (cdkDragStarted)="zone2.style.display='inline-block'"
+          (cdkDragEnded)="make_it_work(zone2, zone11, 'freeRoles', 'myRoles')"
+          [cdkDragDisabled]="role.state=='droped_m'||role.state=='droped_e'||role.state=='droped_f'?'true':'false'">
+          <span class="dep {{role.dep_}}">{{role.dep_ | depName}}</span>
+          <span>{{role.role}}</span>
+          <span>{{role.state | leafState}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="roles-container" #zone2 [style.display]="freeRoles.length==0? 'none': 'inline-block'"
+      [style.margin-left]="myRoles.length==0? 0: '13px'">
+      <h3>空闲的:</h3>
+      <div cdkDropList #free_roles="cdkDropList" [cdkDropListData]="freeRoles" [cdkDropListConnectedTo]="[my_roles]"
+        class="roles-list" (cdkDropListDropped)="drop($event)"
+        [style.border]="freeRoles.length==0?'dashed 1.5px #ccc':'solid 1px #ccc'"
+        (cdkDropListEntered)="zone21.style.border='solid 1px #ccc'"
+        (cdkDropListExited)="zone21.style.border=freeRoles.length<=1?'dashed 1.5px #ccc':'solid 1px #ccc'" #zone21>
+        <div class="role-box" *ngFor="let role of freeRoles" cdkDrag [cdkDragStartDelay]="300"
+          (cdkDragStarted)="zone1.style.display='inline-block'"
+          (cdkDragEnded)="make_it_work(zone1, zone21, 'myRoles', 'freeRoles')">
+          <span class="dep {{role.dep_}}">{{role.dep_ | depName}}</span>
+          <span>{{role.role}}</span>
+          <span>空闲</span>
+        </div>
+      </div>
+    </div>
+    <div class="roles-container c2" [style.display]="leafs.length==0? 'none': 'inline-block'"
+      [style.margin-left]="freeRoles.length==0&&myRoles.length==0? 0: '13px'">
+      <h3>其它人的:</h3>
+      <div cdkDropList class="roles-list" (cdkDropListDropped)="sort($event)">
+        <div class="role-box" *ngFor="let leaf of leafs" cdkDrag [cdkDragStartDelay]="300">
+          <span class="dep {{leaf.dep_}}">{{leaf.dep_ | depName}}</span>
+          <span>{{leaf.role}}</span>
+          <span>{{leaf.pink_id | pinkName}}</span>
+          <span>{{leaf.state | leafState}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<mat-form-field class="example-user-input">
+  <mat-select placeholder="界面语言: ">
+    <mat-option *ngFor="let lang of langs" [value]="lang">
+      {{lang}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field>
+  <input matInput #dateTemplate placeholder="日期格式">
+</mat-form-field>

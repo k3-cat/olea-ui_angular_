@@ -1,0 +1,19 @@
+<mat-card>
+  <h2>登录</h2>
+  <mat-divider></mat-divider>
+  <div class="container">
+    <mat-form-field>
+      <input matInput #name placeholder="Name">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Password" #pwd minlength="8" [type]="hide ? 'password' : 'text'">
+      <button mat-icon-button matSuffix (click)="hide = !hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <div style="padding: 5px 10px 10px 10px">
+    <button mat-stroked-button class='text-button'
+      (click)="login(name.value, pwd.value)">E&ensp;N&ensp;T&ensp;E&ensp;R</button>
+  </div>
+</mat-card>
